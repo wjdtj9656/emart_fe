@@ -1,0 +1,47 @@
+.goodsBox {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vw;
+}
+.goods {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  width: 400px;
+}
+.goodsImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  margin: 8px;
+}
+.goodsPricePrev {
+  display: inline-block;
+  padding: 12px 0px;
+  margin: 0 12px;
+  text-decoration: line-through;
+}
+.goodsPriceNext {
+  display: inline-block;
+  padding: 12px 0px;
+  margin: 0 12px;
+}
+.goodsEvent {
+  width: 90%;
+}
+.sideBtnGroup {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  margin: 20px 0px;
+}
+.btnText {
+  margin: auto;
+}
+.heartBtn {
+  margin: auto;
+}
+.chatBtn {
+  margin: auto;
+}
