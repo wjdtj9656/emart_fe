@@ -10,6 +10,7 @@ Emart front-end 사전과제 입니다.
 - 전역 상태 관리가 필요한가 ? - No (recoil 안씀)
 - react-router가 필요한가 ? - No (페이지이동 없음)
 - ajax 호출은 axios 라이브러리 이용
+- 배포는 깃헙 페이지로
 
 ## 🧐구현 순서
 
