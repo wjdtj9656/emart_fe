@@ -1,5 +1,6 @@
 .goodsBox {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   width: 100vw;
 }
@@ -28,6 +29,11 @@
 }
 .goodsEvent {
   width: 90%;
+  color: red;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid red;
+  cursor: pointer;
 }
 .sideBtnGroup {
   display: flex;
@@ -41,7 +47,9 @@
 }
 .heartBtn {
   margin: auto;
+  cursor: pointer;
 }
 .chatBtn {
   margin: auto;
+  cursor: pointer;
 }
