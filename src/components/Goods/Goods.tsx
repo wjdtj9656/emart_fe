@@ -38,13 +38,16 @@ const Goods = () => {
     if (Items.length > 0) showMoreItem();
   }, [Items]);
   useEffect(() => {
-    if (nowItems.length > 0) showMoreItem();
+    if (nowItems.length > 0 && inView) {
+      showMoreItem();
+      console.log(inView);
+    }
   }, [inView]);
   return (
     <>
       <div className={styles.goodsBox}>
         {nowItems.map((item: Item, index) => (
-          <div className={styles.goods}>
+          <div className={styles.goods} key={item.id}>
             {nowItems.length - 1 === index && (
               <img src={item.image} className={styles.goodsImage} alt="itemImage" ref={ref} />
             )}

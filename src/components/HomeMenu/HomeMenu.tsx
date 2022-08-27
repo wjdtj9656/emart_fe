@@ -13,8 +13,10 @@ const HomeMenu = () => {
   return (
     <>
       <ul className={styles.menuBox}>
-        {items.map((item) => (
-          <li className={styles.item}>{item}</li>
+        {items.map((item, index) => (
+          <li className={styles.item} key={index}>
+            {item}
+          </li>
         ))}
       </ul>
     </>
