@@ -16,17 +16,22 @@ interface Item {
   chatNum: number;
   stock: number;
 }
-const Goods = () => {
+interface GoodsProps {
+  nowMenu: string;
+}
+const Goods = ({ nowMenu }: GoodsProps) => {
   const [Items, setItems] = useState<Item[]>([]);
   const [nowItems, setNowItems] = useState<Item[]>([]);
   const [itemIndex, setItemIndex] = useState(0);
 
   const [ref, inView] = useInView();
   const showMoreItem = () => {
-    for (let i = itemIndex; i < itemIndex + 10; i++) {
-      nowItems.push(Items[i]);
+    let index = itemIndex;
+    for (let i = index; i < index + 10; i++) {
+      if (nowMenu === "전체" || Items[i].tag.indexOf(nowMenu) >= 0) nowItems.push(Items[i]);
+      else index++;
     }
-    setItemIndex(itemIndex + 10);
+    setItemIndex(index + 10);
     setNowItems([...nowItems]);
   };
   useEffect(() => {
@@ -35,25 +40,25 @@ const Goods = () => {
     });
   }, []);
   useEffect(() => {
-    if (Items.length > 0) showMoreItem();
-  }, [Items]);
+    setNowItems([]);
+    setItemIndex(0);
+  }, [nowMenu]);
+  // useEffect(() => {
+  //   if (Items.length > 0) showMoreItem();
+  // }, [Items]);
   useEffect(() => {
-    if (nowItems.length > 0 && inView) {
+    if (nowItems.length !== 0 && inView) {
       showMoreItem();
-      console.log(inView);
+    } else if (inView) {
+      showMoreItem();
     }
   }, [inView]);
   return (
     <>
       <div className={styles.goodsBox}>
         {nowItems.map((item: Item, index) => (
-          <div className={styles.goods} key={item.id}>
-            {nowItems.length - 1 === index && (
-              <img src={item.image} className={styles.goodsImage} alt="itemImage" ref={ref} />
-            )}
-            {nowItems.length - 1 !== index && (
-              <img src={item.image} className={styles.goodsImage} alt="itemImage" />
-            )}
+          <div className={styles.goods} key={index}>
+            <img src={item.image} className={styles.goodsImage} alt="itemImage" />
             <div className={styles.explanation}>
               <div className={styles.goodsPricePrev}>{item.prevPrice}</div>
               <div className={styles.goodsPriceNext}>{item.nextPrice}</div>
@@ -70,7 +75,7 @@ const Goods = () => {
             </div>
           </div>
         ))}
-        <button onClick={showMoreItem}>zzzzzzzzzz</button>
+        <button className={styles.scrollingBtn} ref={ref} />
       </div>
     </>
   );

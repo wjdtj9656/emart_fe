@@ -14,3 +14,18 @@
   margin: auto 8px;
   white-space: nowrap;
 }
+
+.menuBtnSelected {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  color: red;
+  padding: 4px 0;
+  border-bottom: 5px solid;
+}
+
+.menuBtn {
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
