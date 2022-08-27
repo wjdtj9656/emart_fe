@@ -47,10 +47,12 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   //   if (Items.length > 0) showMoreItem();
   // }, [Items]);
   useEffect(() => {
-    if (nowItems.length !== 0 && Items.length > 0) {
-      showMoreItem();
-    } else if (inView && Items.length > 0) {
-      showMoreItem();
+    if (Items.length > 0) {
+      if (nowItems.length !== 0) {
+        showMoreItem();
+      } else if (inView) {
+        showMoreItem();
+      }
     }
   }, [inView, Items]);
   return (
