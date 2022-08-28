@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./HomeMenu.module.css";
 interface MenuProps {
   getMenu: (menuName: string) => void;

@@ -1,5 +1,6 @@
 import axios from "axios";
-const url = `http://${window.location.hostname}:3000/`;
+let url = `https://${window.location.hostname}/emart_fe/`;
+if (window.location.hostname === "localhost") url = `http://${window.location.hostname}:3000/`;
 const itemDataApi = axios.create({
   baseURL: url,
   timeout: 30000,

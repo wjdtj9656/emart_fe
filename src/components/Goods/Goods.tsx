@@ -23,12 +23,14 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   const [Items, setItems] = useState<Item[]>([]);
   const [nowItems, setNowItems] = useState<Item[]>([]);
   const [itemIndex, setItemIndex] = useState(0);
-  // const [nowMenuState, setNowMenuState] = useState(nowMenu);
   const [ref, inView] = useInView();
   const showMoreItem = () => {
     let index = itemIndex;
     let jum = switchMax();
     for (let i = index; i < index + jum; i++) {
+      if (Items.length === 0) {
+        return;
+      }
       if (!Items[i]) {
         setItemIndex(Infinity);
         return;
@@ -38,7 +40,6 @@ const Goods = ({ nowMenu }: GoodsProps) => {
     }
     setItemIndex(index + jum);
     setNowItems([...nowItems]);
-    // if (inView) showMoreItem();
   };
   const switchMax = () => {
     let max = 10;
@@ -50,11 +51,22 @@ const Goods = ({ nowMenu }: GoodsProps) => {
     else if (window.innerWidth >= 7000) max = 400;
     return max;
   };
+  const itemLoad = () => {
+    itemDataApi
+      .get("dummy/itemData.json")
+      .then((item) => {
+        setItems(item.data.itemList);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   useEffect(() => {
-    itemDataApi.get("dummy/itemData.json").then((item) => {
-      setItems(item.data.itemList);
-    });
+    itemLoad();
   }, []);
+  useEffect(() => {
+    showMoreItem();
+  }, [Items]);
   useEffect(() => {
     setNowItems([]);
     setItemIndex(0);
@@ -96,8 +108,6 @@ const Goods = ({ nowMenu }: GoodsProps) => {
         {isFinite(itemIndex) && (
           <button className={styles.scrollingBtn} onClick={showMoreItem} ref={ref} />
         )}
-        {/* hah!
-        </button> */}
       </div>
     </>
   );
