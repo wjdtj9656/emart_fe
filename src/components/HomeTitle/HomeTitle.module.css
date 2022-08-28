@@ -1,4 +1,10 @@
 .title {
+  position: fixed;
+  top: 32px;
   text-align: left;
-  margin: 8px 8px;
+  border-top: 0.5px solid gray;
+  background-color: white;
+  width: 100vw;
+  height: 2rem;
+  padding: 4px 0;
 }

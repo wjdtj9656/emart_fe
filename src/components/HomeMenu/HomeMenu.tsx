@@ -1,20 +1,37 @@
+import { useState } from "react";
 import styles from "./HomeMenu.module.css";
-const HomeMenu = () => {
+interface MenuProps {
+  getMenu: (menuName: string) => void;
+  nowMenu: string;
+}
+const HomeMenu = ({ getMenu, nowMenu }: MenuProps) => {
+  const [selectedMenu, setSelectedMenu] = useState(nowMenu);
   const items = [
     "전체",
-    "든든하고 건강하게",
-    "가을 과일",
-    "피코크",
-    "신선한 과일",
-    "육류",
-    "생선",
-    "안ㅁ",
+    "건강한",
+    "제철과일",
+    "시원한",
+    "달콤한",
+    "맛있는",
+    "가성비좋은",
+    "신선한",
+    "여름과일",
   ];
   return (
     <>
       <ul className={styles.menuBox}>
-        {items.map((item) => (
-          <li className={styles.item}>{item}</li>
+        {items.map((item, index) => (
+          <li className={styles.item} key={index}>
+            <button
+              className={selectedMenu === item ? styles.menuBtnSelected : styles.menuBtn}
+              onClick={() => {
+                getMenu(item);
+                setSelectedMenu(item);
+              }}
+            >
+              {item}
+            </button>
+          </li>
         ))}
       </ul>
     </>

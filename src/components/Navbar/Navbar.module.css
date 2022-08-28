@@ -1,10 +1,13 @@
 /* nav */
 .navBlock {
+  position: fixed;
   display: flex;
   justify-content: space-between;
   width: 100vw;
   height: 50px;
   border-bottom: 0.5px solid gray;
+  background-color: white;
+  top: 0px;
 }
 /* nav left */
 .navLeft {
