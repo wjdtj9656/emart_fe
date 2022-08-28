@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/emart_fe/static/css/main.b1d71a0e.css",
-    "main.js": "/emart_fe/static/js/main.5e343f6b.js",
+    "main.js": "/emart_fe/static/js/main.69fe929e.js",
     "index.html": "/emart_fe/index.html",
     "main.b1d71a0e.css.map": "/emart_fe/static/css/main.b1d71a0e.css.map",
-    "main.5e343f6b.js.map": "/emart_fe/static/js/main.5e343f6b.js.map"
+    "main.69fe929e.js.map": "/emart_fe/static/js/main.69fe929e.js.map"
   },
   "entrypoints": [
     "static/css/main.b1d71a0e.css",
-    "static/js/main.5e343f6b.js"
+    "static/js/main.69fe929e.js"
   ]
 }
