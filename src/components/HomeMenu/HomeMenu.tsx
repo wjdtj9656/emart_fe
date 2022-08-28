@@ -2,9 +2,10 @@ import { useState } from "react";
 import styles from "./HomeMenu.module.css";
 interface MenuProps {
   getMenu: (menuName: string) => void;
+  nowMenu: string;
 }
-const HomeMenu = ({ getMenu }: MenuProps) => {
-  const [selectedMenu, setSelectedMenu] = useState("전체");
+const HomeMenu = ({ getMenu, nowMenu }: MenuProps) => {
+  const [selectedMenu, setSelectedMenu] = useState(nowMenu);
   const items = [
     "전체",
     "건강한",

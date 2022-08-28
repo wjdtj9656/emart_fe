@@ -23,16 +23,32 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   const [Items, setItems] = useState<Item[]>([]);
   const [nowItems, setNowItems] = useState<Item[]>([]);
   const [itemIndex, setItemIndex] = useState(0);
-
+  // const [nowMenuState, setNowMenuState] = useState(nowMenu);
   const [ref, inView] = useInView();
   const showMoreItem = () => {
     let index = itemIndex;
-    for (let i = index; i < index + 10; i++) {
+    let jum = switchMax();
+    for (let i = index; i < index + jum; i++) {
+      if (!Items[i]) {
+        setItemIndex(Infinity);
+        return;
+      }
       if (nowMenu === "전체" || Items[i].tag.indexOf(nowMenu) >= 0) nowItems.push(Items[i]);
       else index++;
     }
-    setItemIndex(index + 10);
+    setItemIndex(index + jum);
     setNowItems([...nowItems]);
+    // if (inView) showMoreItem();
+  };
+  const switchMax = () => {
+    let max = 10;
+    if (window.innerWidth > 1500 && window.innerWidth < 2000) max = 20;
+    else if (window.innerWidth >= 2000 && window.innerWidth < 2500) max = 30;
+    else if (window.innerWidth >= 2500 && window.innerWidth < 3000) max = 40;
+    else if (window.innerWidth >= 3000 && window.innerWidth < 5000) max = 70;
+    else if (window.innerWidth >= 5000 && window.innerWidth < 7000) max = 200;
+    else if (window.innerWidth >= 7000) max = 400;
+    return max;
   };
   useEffect(() => {
     itemDataApi.get("dummy/itemData.json").then((item) => {
@@ -42,19 +58,19 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   useEffect(() => {
     setNowItems([]);
     setItemIndex(0);
+    window.scrollTo(0, 0);
   }, [nowMenu]);
-  // useEffect(() => {
-  //   if (Items.length > 0) showMoreItem();
-  // }, [Items]);
+
   useEffect(() => {
-    if (Items.length > 0) {
-      if (nowItems.length !== 0) {
-        showMoreItem();
-      } else if (inView) {
-        showMoreItem();
-      }
+    if (inView) {
+      showMoreItem();
     }
-  }, [inView, Items]);
+  }, [inView]);
+  useEffect(() => {
+    if (inView && nowItems.length < switchMax()) {
+      showMoreItem();
+    }
+  }, [nowItems]);
   return (
     <>
       <div className={styles.goodsBox}>
@@ -77,7 +93,11 @@ const Goods = ({ nowMenu }: GoodsProps) => {
             </div>
           </div>
         ))}
-        <button className={styles.scrollingBtn} ref={ref} />
+        {isFinite(itemIndex) && (
+          <button className={styles.scrollingBtn} onClick={showMoreItem} ref={ref} />
+        )}
+        {/* hah!
+        </button> */}
       </div>
     </>
   );
