@@ -22,6 +22,12 @@ Emart front-end 사전과제 입니다.
 5. state를 이용한 구체적 로직 관리
 6. 리펙토링
 
+## 주요 리펙토링
+
+1. typescript type => model로 관리
+2. 컴포넌트를 최대한 작게 나눔
+3. 주석 작성
+
 ## 👀체크리스트
 
 - [x] React 사용
