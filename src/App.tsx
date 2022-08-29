@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Goods from "./components/Goods/Goods";
 import HomeMenu from "./components/HomeMenu/HomeMenu";

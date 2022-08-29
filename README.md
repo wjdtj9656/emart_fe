@@ -5,6 +5,7 @@ Emart front-end 사전과제 입니다.
 ## 🤔 설계 flow
 
 - 최대한 예시와 비슷하게
+- pc에서도 볼 수 있게
 - branch 관리는 master, develop, features로
 - 화면에 쓰이는 아이콘은 material - icon으로
 - 전역 상태 관리가 필요한가 ? - No (recoil 안씀)
@@ -20,3 +21,21 @@ Emart front-end 사전과제 입니다.
 4. fetch한 데이터들 상태관리
 5. state를 이용한 구체적 로직 관리
 6. 리펙토링
+
+## 👀체크리스트
+
+- [x] React 사용
+- [x] API 통신하여 JSON 데이터 가져와서 화면 구성
+- [x] 스크롤을 이용한 리스트 페이징
+- [x] 메뉴 좌우 스크롤
+- [x] 메뉴 클릭 시 데이터 필터링
+- [x] 클릭된 메뉴 ON/OFF 표시
+- [x] 스크롤 다운 메뉴 숨김 / 스크롤 업 메뉴늘 표시해주세요
+- [x] 화면 해상도에 따라 리스트 배열 변경
+
+## 라이브러리
+
+- mui/icon
+- axios
+- gh-pasges (배포)
+- react-intersection-observer ( 무한 스크롤링)
