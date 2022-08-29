@@ -9,26 +9,9 @@
   background-color: white;
   top: 0px;
 }
-/* nav left */
-.navLeft {
-  margin: auto 0;
-}
-.navBackBtn {
-  cursor: pointer;
-}
-.navHomeBtn {
-  cursor: pointer;
-}
 
 /* nav center */
 .navCenter {
+  font-weight: bold;
   margin: auto 0;
-}
-
-/* nav right */
-.navRight {
-  margin: auto 10px;
-}
-.navMenuBtn {
-  cursor: pointer;
 }

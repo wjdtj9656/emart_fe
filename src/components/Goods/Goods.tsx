@@ -1,21 +1,9 @@
 import styles from "./Goods.module.css";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { useEffect, useState } from "react";
 import itemDataApi from "../../api/ItemDataAPI";
 import { useInView } from "react-intersection-observer";
-interface Item {
-  id: number;
-  image: string;
-  prevPrice: string;
-  nextPrice: string;
-  title: string;
-  tag: string;
-  discount: string;
-  heartNum: number;
-  chatNum: number;
-  stock: number;
-}
+import Good from "./Good";
+import { Item } from "../../model/Item";
 interface GoodsProps {
   nowMenu: string;
 }
@@ -23,7 +11,11 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   const [Items, setItems] = useState<Item[]>([]);
   const [nowItems, setNowItems] = useState<Item[]>([]);
   const [itemIndex, setItemIndex] = useState(0);
+
+  //infinite scroll state
   const [ref, inView] = useInView();
+
+  //아이템 무한 스크롤링
   const showMoreItem = () => {
     let index = itemIndex;
     let jum = switchMax();
@@ -31,16 +23,20 @@ const Goods = ({ nowMenu }: GoodsProps) => {
       if (Items.length === 0) {
         return;
       }
+      //더 이상 아이템이 없을 때
       if (!Items[i]) {
         setItemIndex(Infinity);
         return;
       }
+      //카테고리
       if (nowMenu === "전체" || Items[i].tag.indexOf(nowMenu) >= 0) nowItems.push(Items[i]);
       else index++;
     }
     setItemIndex(index + jum);
     setNowItems([...nowItems]);
   };
+
+  //화면 크기별 아이템 개수 설정
   const switchMax = () => {
     let max = 10;
     if (window.innerWidth > 1500 && window.innerWidth < 2000) max = 20;
@@ -51,33 +47,42 @@ const Goods = ({ nowMenu }: GoodsProps) => {
     else if (window.innerWidth >= 7000) max = 400;
     return max;
   };
+
+  //아이템 load
   const itemLoad = () => {
     itemDataApi
       .get("dummy/itemData.json")
       .then((item) => {
         setItems(item.data.itemList);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        if (error.response) console.log("item load response Error");
+        else if (error.request) console.log("item load request Error");
+        else console.log("item load" + error.message);
       });
   };
+
+  //item load
   useEffect(() => {
     itemLoad();
   }, []);
+  //아이템 로딩이 끝난 후, 로직 수행을 위한 side
   useEffect(() => {
     showMoreItem();
   }, [Items]);
+  //다른 메뉴 선택시 side
   useEffect(() => {
     setNowItems([]);
     setItemIndex(0);
     window.scrollTo(0, 0);
   }, [nowMenu]);
-
+  //무한 스크롤을 위한 side
   useEffect(() => {
     if (inView) {
       showMoreItem();
     }
   }, [inView]);
+  //초기에 화면을 채위기 위한 side
   useEffect(() => {
     if (inView && nowItems.length < switchMax()) {
       showMoreItem();
@@ -87,22 +92,8 @@ const Goods = ({ nowMenu }: GoodsProps) => {
     <>
       <div className={styles.goodsBox}>
         {nowItems.map((item: Item, index) => (
-          <div className={styles.goods} key={index}>
-            <img src={item.image} className={styles.goodsImage} alt="itemImage" />
-            <div className={styles.explanation}>
-              <div className={styles.goodsPricePrev}>{item.prevPrice}</div>
-              <div className={styles.goodsPriceNext}>{item.nextPrice}</div>
-              <h3 className={styles.goodsTitle}>{item.title}</h3>
-              <button className={styles.goodsEvent}>
-                신세계 포인트 적립시 {item.discount} 할인
-              </button>
-              <div className={styles.sideBtnGroup}>
-                <FavoriteIcon className={styles.heartBtn}></FavoriteIcon>
-                <h6 className={styles.btnText}>{item.heartNum}</h6>
-                <ChatBubbleOutlineIcon className={styles.chatBtn}></ChatBubbleOutlineIcon>
-                <h6 className={styles.btnText}>{item.chatNum}</h6>
-              </div>
-            </div>
+          <div className={styles.goods}>
+            <Good item={item} key={index} />
           </div>
         ))}
         {isFinite(itemIndex) && (

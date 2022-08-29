@@ -1,0 +1,10 @@
+/* nav left */
+.navLeft {
+  margin: auto 0;
+}
+.navBackBtn {
+  cursor: pointer;
+}
+.navHomeBtn {
+  cursor: pointer;
+}
