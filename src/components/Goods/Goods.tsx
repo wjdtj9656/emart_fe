@@ -13,8 +13,7 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   const [itemIndex, setItemIndex] = useState(0);
 
   //infinite scroll state
-  const [ref, inView] = useInView();
-
+  const [ref, inView] = useInView({ initialInView: false });
   //아이템 무한 스크롤링
   const showMoreItem = () => {
     let index = itemIndex;
@@ -68,7 +67,8 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   }, []);
   //아이템 로딩이 끝난 후, 로직 수행을 위한 side
   useEffect(() => {
-    showMoreItem();
+    // showMoreItem();
+    setNowItems([]);
   }, [Items]);
   //다른 메뉴 선택시 side
   useEffect(() => {
@@ -78,13 +78,13 @@ const Goods = ({ nowMenu }: GoodsProps) => {
   }, [nowMenu]);
   //무한 스크롤을 위한 side
   useEffect(() => {
-    if (inView) {
+    if (inView && Items.length > 0) {
       showMoreItem();
     }
   }, [inView]);
   //초기에 화면을 채위기 위한 side
   useEffect(() => {
-    if (inView && nowItems.length < switchMax()) {
+    if (inView && nowItems.length < switchMax() && Items.length > 0) {
       showMoreItem();
     }
   }, [nowItems]);
@@ -92,8 +92,8 @@ const Goods = ({ nowMenu }: GoodsProps) => {
     <>
       <div className={styles.goodsBox}>
         {nowItems.map((item: Item, index) => (
-          <div className={styles.goods}>
-            <Good item={item} key={index} />
+          <div className={styles.goods} key={index}>
+            <Good item={item} />
           </div>
         ))}
         {isFinite(itemIndex) && (
